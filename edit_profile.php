@@ -4,10 +4,6 @@ header("Content-Type: application/json");
 
 require "db.php";
 
-/*
-    username
-*/
-
 if(!isset($_POST["username"]))
 {
     die(json_encode([
@@ -22,9 +18,6 @@ trim($_POST["username"]);
 $bio =
 $_POST["bio"] ?? "";
 
-/*
-    avatar
-*/
 
 $avatarName = null;
 
@@ -32,9 +25,6 @@ if(isset($_FILES["avatar"]))
 {
     if($_FILES["avatar"]["error"] == 0)
     {
-        /*
-            uploads folder
-        */
 
         if(!file_exists("uploads"))
         {
@@ -61,10 +51,6 @@ if(isset($_FILES["avatar"]))
         "uploads/" .
         $avatarName;
 
-        /*
-            move
-        */
-
         if(!move_uploaded_file(
             $_FILES["avatar"]["tmp_name"],
             $target))
@@ -76,11 +62,6 @@ if(isset($_FILES["avatar"]))
         }
     }
 }
-
-/*
-    update
-*/
-
 if($avatarName)
 {
     $stmt =
