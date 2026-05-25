@@ -16,9 +16,6 @@ $videos = [];
 while($row =
 $stmt->fetch(PDO::FETCH_ASSOC))
 {
-    /*
-        IMPORTANT
-    */
 
     if(!isset($row["video"]))
     {
