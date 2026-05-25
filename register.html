@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<title>Musical.ly - Sign Up</title>
+
+<style>
+
+body
+{
+    background:#111;
+    font-family:Helvetica;
+    color:white;
+    margin:0;
+    padding:0;
+}
+
+.container
+{
+    width:320px;
+
+    margin:auto;
+
+    margin-top:50px;
+
+    background:#1c1c1c;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    box-sizing:border-box;
+}
+
+.logo
+{
+    width:220px;
+
+    display:block;
+
+    margin:auto;
+
+    margin-bottom:25px;
+}
+
+input
+{
+    width:100%;
+
+    height:45px;
+
+    margin-bottom:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding-left:12px;
+
+    font-size:16px;
+
+    box-sizing:border-box;
+}
+
+button
+{
+    width:100%;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:white;
+
+    color:black;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+button:hover
+{
+    opacity:0.9;
+}
+
+.status
+{
+    text-align:center;
+
+    margin-top:15px;
+
+    font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="logo.png"
+class="logo">
+
+<form id="signupForm">
+
+<input type="text"
+id="username"
+placeholder="Username"
+required>
+
+<input type="email"
+id="email"
+placeholder="Email"
+required>
+
+<input type="password"
+id="password"
+placeholder="Password"
+required>
+
+<button type="submit">
+Create Account
+</button>
+
+</form>
+
+<div class="status"
+id="status"></div>
+
+</div>
+
+<script>
+
+document
+.getElementById("signupForm")
+.onsubmit = function(e)
+{
+    e.preventDefault();
+
+    var status =
+    document.getElementById("status");
+
+    status.innerHTML =
+    "Creating account...";
+
+    var formData =
+    new FormData();
+
+    formData.append(
+    "username",
+    document.getElementById("username").value);
+
+    formData.append(
+    "email",
+    document.getElementById("email").value);
+
+    formData.append(
+    "password",
+    document.getElementById("password").value);
+
+    fetch("register.php",
+    {
+        method:"POST",
+        body:formData
+    })
+
+    .then(function(response)
+    {
+        return response.json();
+    })
+
+    .then(function(json)
+    {
+        if(json.success)
+        {
+            status.innerHTML =
+            "Account created successfully";
+        }
+        else
+        {
+            status.innerHTML =
+            json.message ||
+            "Signup failed";
+        }
+    })
+
+    .catch(function()
+    {
+        status.innerHTML =
+        "Connection failed";
+    });
+};
+
+</script>
+
+</body>
+</html>
