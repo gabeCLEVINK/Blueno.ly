@@ -59,10 +59,6 @@ if($extension == "")
     $extension = "mov";
 }
 
-/*
-    unique filename
-*/
-
 $filename =
 time() .
 rand(1000,9999) .
@@ -124,7 +120,7 @@ echo json_encode([
     "success" => true,
     "video" => $filename,
     "url" =>
-    "http://blueno.ly.gabriknet.online/uploads/" .
+    "http://epiksite.xyz/uploads/" .
     $filename
 ]);
 
