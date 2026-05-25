@@ -1,9 +1,5 @@
 <?php
 
-/*
-    connect sqlite
-*/
-
 $db = new PDO(
 "sqlite:bluenoly.db"
 );
@@ -12,10 +8,6 @@ $db->setAttribute(
 PDO::ATTR_ERRMODE,
 PDO::ERRMODE_EXCEPTION
 );
-
-/*
-    execute sql automatically
-*/
 
 $sql = "
 
@@ -85,15 +77,7 @@ CREATE TABLE IF NOT EXISTS notifications
 
 ";
 
-/*
-    run sql
-*/
-
 $db->exec($sql);
-
-/*
-    create folders
-*/
 
 if(!is_dir("uploads"))
 {
