@@ -4,10 +4,6 @@ header("Content-Type: application/json");
 
 require "db.php";
 
-/*
-    username
-*/
-
 if(!isset($_GET["username"]))
 {
     die(json_encode([
@@ -26,10 +22,6 @@ if($username == "")
         "message" => "Empty Username"
     ]));
 }
-
-/*
-    user
-*/
 
 $stmt =
 $db->prepare("
@@ -58,32 +50,21 @@ if(!$user)
     ]));
 }
 
-/*
-    bio fallback
-*/
-
 if(!isset($user["bio"]))
 {
     $user["bio"] = "";
 }
 
-/*
-    avatar fix
-*/
-
 if(isset($user["avatar"]) &&
    $user["avatar"] != "")
 {
-    /*
-        if already full url
-    */
 
     if(strpos(
        $user["avatar"],
        "http") !== 0)
     {
         $user["avatar"] =
-        "http://blueno.ly.gabriknet.online/uploads/" .
+        "http://yoursite.xyz/uploads/" .
         $user["avatar"];
     }
 }
@@ -91,10 +72,6 @@ else
 {
     $user["avatar"] = "";
 }
-
-/*
-    videos
-*/
 
 $stmt =
 $db->prepare("
@@ -117,9 +94,6 @@ $videos = [];
 while($row =
 $stmt->fetch(PDO::FETCH_ASSOC))
 {
-    /*
-        fallbacks
-    */
 
     if(!isset($row["caption"]))
     {
@@ -133,11 +107,6 @@ $stmt->fetch(PDO::FETCH_ASSOC))
 
     $videos[] = $row;
 }
-
-/*
-    response
-*/
-
 echo json_encode([
     "success" => true,
     "user" => $user,
