@@ -7,10 +7,6 @@ error_reporting(E_ALL);
 
 require "db.php";
 
-/*
-    data
-*/
-
 $username =
 isset($_POST['username'])
 ? trim($_POST['username'])
@@ -31,10 +27,6 @@ isset($_POST['bio'])
 ? trim($_POST['bio'])
 : '';
 
-/*
-    validate
-*/
-
 if($username == '' ||
    $email == '' ||
    $password == '')
@@ -46,10 +38,6 @@ if($username == '' ||
 
     exit;
 }
-
-/*
-    user exists
-*/
 
 $check =
 $db->prepare("
@@ -74,10 +62,6 @@ if($check->fetch())
 
     exit;
 }
-
-/*
-    avatar
-*/
 
 $avatarPath = '';
 
@@ -115,11 +99,7 @@ if(isset($_FILES['avatar']))
 
     $avatarPath =
     $target;
-}
-
-/*
-    create user
-*/
+}  
 
 $password =
 md5($password);
